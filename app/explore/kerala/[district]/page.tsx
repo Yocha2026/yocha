@@ -1331,6 +1331,17 @@ const districts: Record<string, District> = {
 };
 
 // ------------------------------------------
+// STATIC ROUTE GENERATION FOR GITHUB PAGES
+// ------------------------------------------
+export function generateStaticParams() {
+  return Object.keys(districts).map((district) => ({
+    district,
+  }));
+}
+
+export const dynamicParams = false;
+
+// ------------------------------------------
 // LOADING FALLBACK
 // ------------------------------------------
 function DistrictLoading() {

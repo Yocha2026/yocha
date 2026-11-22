@@ -2,16 +2,26 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* Hide Next.js development indicator */
+  // Generate a static website for GitHub Pages
+  output: "export",
+
+  // Generate /about/index.html, /contact/index.html, etc.
+  trailingSlash: true,
+
+  // GitHub Pages cannot use Next.js server-side image optimization
+  images: {
+    unoptimized: true,
+  },
+
+  // Hide Next.js development indicator
   devIndicators: false,
 
+  // Keep existing experimental configuration
   experimental: {
     agentFeedback: true,
   },
 
-  cacheComponents: true,
-  partialPrefetching: true,
-
+  // Preserve the existing Turbopack CSS configuration
   turbopack: {
     rules: {
       "*.css": {
