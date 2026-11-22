@@ -1,26 +1,329 @@
+
 @import "tailwindcss";
 
+/* =====================================================
+   YOCHA DESIGN SYSTEM
+===================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --yocha-green: #10271f;
+  --yocha-dark: #0b1c14;
+  --yocha-footer: #081710;
+
+  --yocha-orange: #bd4c2b;
+  --yocha-orange-light: #df642f;
+
+  --yocha-ivory: #eee3c9;
+  --yocha-white: #f4efe4;
+  --yocha-gold: #d6b77a;
+
+  --yocha-border: rgba(238, 227, 201, 0.13);
+  --yocha-muted: rgba(238, 227, 201, 0.65);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
+
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 85px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  margin: 0;
+  min-height: 100vh;
+  background: var(--yocha-dark);
+  color: var(--yocha-white);
   font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =====================================================
+   TYPOGRAPHY
+===================================================== */
+
+.font-editorial {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.text-yocha-orange {
+  color: var(--yocha-orange-light);
+}
+
+.text-yocha-gold {
+  color: var(--yocha-gold);
+}
+
+/* =====================================================
+   YOCHA BUTTON SYSTEM
+===================================================== */
+
+/*
+   Primary button:
+   Orange background + white text
+*/
+
+.yocha-button,
+.yocha-button-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 28px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+
+  background-color: var(--yocha-orange);
+  color: #ffffff !important;
+
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    transform 300ms ease;
+}
+
+.yocha-button:hover,
+.yocha-button-primary:hover {
+  background-color: var(--yocha-orange-light);
+  color: #ffffff !important;
+  transform: translateY(-2px);
+}
+
+/*
+   Dark button:
+   Green background + white text
+   Orange background on hover + white text
+*/
+
+.yocha-button-dark,
+a[class~="bg-[#10271f]"],
+button[class~="bg-[#10271f]"],
+a[class~="bg-[#0b1c14]"],
+button[class~="bg-[#0b1c14]"] {
+  color: #ffffff !important;
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease,
+    transform 300ms ease;
+}
+
+/* Force child text and icons to inherit white */
+
+.yocha-button-dark *,
+a[class~="bg-[#10271f]"] *,
+button[class~="bg-[#10271f]"] *,
+a[class~="bg-[#0b1c14]"] *,
+button[class~="bg-[#0b1c14]"] * {
+  color: inherit !important;
+}
+
+/* Dark button hover */
+
+.yocha-button-dark:hover,
+a[class~="bg-[#10271f]"]:hover,
+button[class~="bg-[#10271f]"]:hover,
+a[class~="bg-[#0b1c14]"]:hover,
+button[class~="bg-[#0b1c14]"]:hover {
+  background-color: var(--yocha-orange) !important;
+  color: #ffffff !important;
+}
+
+/* Outline button */
+
+.yocha-button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 13px 27px;
+  border: 1px solid var(--yocha-gold);
+  border-radius: 999px;
+
+  background: transparent;
+  color: var(--yocha-ivory) !important;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    background-color 300ms ease,
+    color 300ms ease,
+    border-color 300ms ease;
+}
+
+.yocha-button-outline:hover {
+  background: var(--yocha-orange);
+  border-color: var(--yocha-orange);
+  color: #ffffff !important;
+}
+
+/* Button keyboard accessibility */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--yocha-gold);
+  outline-offset: 4px;
+}
+
+/* Disabled buttons */
+
+button:disabled,
+.yocha-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* =====================================================
+   STORY SECTIONS
+===================================================== */
+
+.story-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.story-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.story-overlay {
+  position: absolute;
+  inset: 0;
+
+  background: linear-gradient(
+    90deg,
+    rgba(7, 21, 14, 0.95),
+    rgba(7, 21, 14, 0.45),
+    transparent
+  );
+}
+
+/* =====================================================
+   ROADMAP ANIMATIONS
+===================================================== */
+
+.roadmap-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+
+  transition:
+    opacity 800ms ease,
+    transform 800ms ease;
+}
+
+.roadmap-reveal.roadmap-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =====================================================
+   FORM ELEMENTS
+===================================================== */
+
+input,
+textarea,
+select {
+  max-width: 100%;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(238, 227, 201, 0.4);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* =====================================================
+   SELECTION
+===================================================== */
+
+::selection {
+  background: var(--yocha-orange);
+  color: #ffffff;
+}
+
+/* =====================================================
+   RESPONSIVE DESIGN
+===================================================== */
+
+@media (max-width: 768px) {
+  html {
+    scroll-padding-top: 70px;
+  }
+
+  .yocha-button,
+  .yocha-button-primary,
+  .yocha-button-dark,
+  .yocha-button-outline {
+    min-height: 44px;
+  }
+}
+
+/* =====================================================
+   REDUCED MOTION ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .roadmap-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
 }
